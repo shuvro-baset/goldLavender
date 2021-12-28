@@ -40,25 +40,26 @@
     </div>
     <div class="row py-5 d-flex justify-content-center align-items-center">
         <div class="col-md-6">
-            <form action="">
+            <form action="{% url 'add-mobile' %}" method="post">
+                {% csrf_token %}
                 <div class="mb-3">
                     <label class="form-label">Brand name</label>
-                    <input type="text" class="form-control" placeholder="Brand name" required>
+                    <input name="brand_name" type="text" class="form-control" placeholder="Brand name" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Model name</label>
-                    <input type="text" class="form-control" placeholder="Model name" required>
+                    <input name="model" type="text" class="form-control" placeholder="Model name" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">JAN Code</label>
-                    <input type="text" class="form-control" placeholder="JAN Code" required>
+                    <input name="jan_code" type="text" class="form-control" placeholder="JAN Code" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Color</label>
-                    <input type="text" class="form-control" placeholder="Color" required>
+                    <input name="color" type="text" class="form-control" placeholder="Color" required>
                 </div>
 
-                <button class="btn btn-primary">add mobile</button>
+                <button type="submit" class="btn btn-primary">add mobile</button>
             </form>
         </div>
     </div>

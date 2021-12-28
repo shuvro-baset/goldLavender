@@ -1,12 +1,59 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 
-
 # Create your views here.
-class Home(generic.TemplateView):
-    template_name = 'home.html'
+from mobileApp.models import Mobile
 
-    # def get(self):
 
-class MobileList(generic.TemplateView):
-    template_name = 'mobile-list.html'
+def home(request):
+    return render(request, 'home.html')
+
+
+def add_mobile(request):
+    brand_name = request.POST.get("brand_name")
+    model = request.POST.get("model")
+    jan_code = request.POST.get("jan_code")
+    color = request.POST.get("color")
+
+    jan_code_exist = Mobile.objects.filter(jan_code=jan_code).exists()
+    if jan_code_exist:
+        return render(request, 'home.html', )
+    else:
+        mobile_ins = Mobile(brand_name=brand_name, model=model, jan_code=jan_code, color=color)
+        mobile_ins.save()
+        return render(request, 'home.html')
+
+
+def mobile_list(request):
+    mobile_list = Mobile.objects.all()
+    context = {
+        "mobile_list": mobile_list
+    }
+    return render(request, 'mobile-list.html', context)
+
+
+def delete_mobile(request, id):
+    mobile_list = Mobile.objects.all()
+    context = {
+        "mobile_list": mobile_list
+    }
+
+    mobile_inst = Mobile.objects.filter(id=id).first()
+    if mobile_inst is not None:
+        mobile_inst.delete()
+
+        return redirect('mobile-list')
+    return render(request, 'mobile-list.html', context)
+
+
+def search_mobile_list(request):
+    mobile_list = Mobile.objects.all()
+    context = {
+        "mobile_list": mobile_list
+    }
+
+    search_text = request.POST.get("search_text")
+    mobile = Mobile.objects.filter(model=search_text, jan_code=search_text).all()
+    print(mobile)
+
+    return render(request, 'search-result.html', context)

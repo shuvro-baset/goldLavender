@@ -38,17 +38,7 @@
         <h1 class="text-center">Welcome to GoldLavender Mobile world!</h1>
         <h3 class="text-center">Mobile List </h3>
     </div>
-    <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-md-6">
-            <form action="{% url 'search-mobile' %}" method="post">
-                {% csrf_token %}
-                <div class="mb-3 d-flex justify-content-center align-items-center">
-                    <input type="text" name="search_text" class="form-control" placeholder="Search">
-                    <button type="submit" class="btn btn-success">Search</button>
-                </div>
-            </form>
-        </div>
-    </div>
+
     <div class="row py-5 d-flex justify-content-center align-items-center">
         <table class="table table-responsive">
             <thead>
@@ -77,30 +67,7 @@
                 </td>
             </tr>
             {% endfor %}
-{#            <tr>#}
-{#                <th scope="row">#}
-{#                    <input type="checkbox">#}
-{#                </th>#}
-{#                <td>Xioami</td>#}
-{#                <td>Mi-8 SE</td>#}
-{#                <td>Off White</td>#}
-{#                <td>123456</td>#}
-{#                <td>#}
-{#                    <button class="btn btn-danger">x</button>#}
-{#                </td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th scope="row">#}
-{#                    <input type="checkbox">#}
-{#                </th>#}
-{#                <td>Xioami</td>#}
-{#                <td>Mi-8 SE</td>#}
-{#                <td>Off White</td>#}
-{#                <td>123456</td>#}
-{#                <td>#}
-{#                    <button class="btn btn-danger">x</button>#}
-{#                </td>#}
-{#            </tr>#}
+
             </tbody>
         </table>
     </div>
