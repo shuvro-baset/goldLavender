@@ -23,15 +23,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mobiles</a>
+                    <a class="nav-link" href="{% url 'mobile-list' %}">Mobiles</a>
                 </li>
-
-
             </ul>
-
         </div>
     </div>
 </nav>
@@ -39,30 +36,59 @@
 <div class="container">
     <div class="row">
         <h1 class="text-center">Welcome to GoldLavender Mobile world!</h1>
+        <h3 class="text-center">Mobile List</h3>
     </div>
     <div class="row py-5 d-flex justify-content-center align-items-center">
-        <div class="col-md-6">
-            <form action="">
-                <div class="mb-3">
-                    <label class="form-label">Brand name</label>
-                    <input type="text" class="form-control" placeholder="Brand name" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Model name</label>
-                    <input type="text" class="form-control" placeholder="Model name" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">JAN Code</label>
-                    <input type="text" class="form-control" placeholder="JAN Code" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Color</label>
-                    <input type="text" class="form-control" placeholder="Color" required>
-                </div>
-
-                <button class="btn btn-primary">add mobile</button>
-            </form>
-        </div>
+        <table class="table table-responsive">
+            <thead>
+            <tr>
+                <th scope="col">Select</th>
+                <th scope="col">Brand Name</th>
+                <th scope="col">Model Name</th>
+                <th scope="col">Color</th>
+                <th scope="col">Jan Code</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">
+                    <input type="checkbox">
+                </th>
+                <td>Xioami</td>
+                <td>Mi-8 SE</td>
+                <td>Off White</td>
+                <td>123456</td>
+                <td>
+                    <button class="btn btn-danger">x</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <input type="checkbox">
+                </th>
+                <td>Xioami</td>
+                <td>Mi-8 SE</td>
+                <td>Off White</td>
+                <td>123456</td>
+                <td>
+                    <button class="btn btn-danger">x</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <input type="checkbox">
+                </th>
+                <td>Xioami</td>
+                <td>Mi-8 SE</td>
+                <td>Off White</td>
+                <td>123456</td>
+                <td>
+                    <button class="btn btn-danger">x</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
