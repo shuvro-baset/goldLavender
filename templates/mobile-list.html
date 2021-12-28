@@ -43,7 +43,7 @@
             <form action="{% url 'search-mobile' %}" method="post">
                 {% csrf_token %}
                 <div class="mb-3 d-flex justify-content-center align-items-center">
-                    <input type="text" name="search_text" class="form-control" placeholder="Search">
+                    <input id="search" type="text" name="search_text" class="form-control" placeholder="Search">
                     <button type="submit" class="btn btn-success">Search</button>
                 </div>
             </form>
@@ -64,50 +64,50 @@
             <tbody>
 
             {% for mobile in mobile_list %}
-            <tr>
-                <th scope="row">
-                    <input type="checkbox" id="{{ mobile.id }}">
-                </th>
-                <td>{{ mobile.brand_name }}</td>
-                <td>{{ mobile.brand_name}}</td>
-                <td>{{ mobile.model}}</td>
-                <td>{{ mobile.jan_code }}</td>
-                <td>
-                    <a class="btn btn-danger" href="{% url 'delete' mobile.id %}">x</a>
-                </td>
-            </tr>
+                <tr>
+                    <th scope="row">
+                        <input type="checkbox" id="{{ mobile.id }}">
+                    </th>
+                    <td>{{ mobile.brand_name }}</td>
+                    <td>{{ mobile.brand_name }}</td>
+                    <td>{{ mobile.model }}</td>
+                    <td>{{ mobile.jan_code }}</td>
+                    <td>
+                        <a class="btn btn-danger" href="{% url 'delete' mobile.id %}">x</a>
+                    </td>
+                </tr>
             {% endfor %}
-{#            <tr>#}
-{#                <th scope="row">#}
-{#                    <input type="checkbox">#}
-{#                </th>#}
-{#                <td>Xioami</td>#}
-{#                <td>Mi-8 SE</td>#}
-{#                <td>Off White</td>#}
-{#                <td>123456</td>#}
-{#                <td>#}
-{#                    <button class="btn btn-danger">x</button>#}
-{#                </td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th scope="row">#}
-{#                    <input type="checkbox">#}
-{#                </th>#}
-{#                <td>Xioami</td>#}
-{#                <td>Mi-8 SE</td>#}
-{#                <td>Off White</td>#}
-{#                <td>123456</td>#}
-{#                <td>#}
-{#                    <button class="btn btn-danger">x</button>#}
-{#                </td>#}
-{#            </tr>#}
+
             </tbody>
         </table>
     </div>
 </div>
 
+<script>
+    $(document).ready( function(){
+    $('#search').keyup(function(){
+        var query = $(this).val();
+        $.ajax(function(){
+            type: "GET",
+            url: "/search-mobile/",
+            data: {suggestion: query},
+            success: function(data){
+                console.log("SUCCESS");
+                console.log(data);
+            },
+            failure: function(data){
+                console.log("FAIL");
+                console.log(data);
+            },
+        });
+    });
+});
+
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

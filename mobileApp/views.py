@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views import generic
 
@@ -47,13 +48,10 @@ def delete_mobile(request, id):
 
 
 def search_mobile_list(request):
-    mobile_list = Mobile.objects.all()
+    search_text = request.POST.get("search_text")
+    mobile = Mobile.objects.filter(Q(model__contains=search_text) | Q(jan_code__contains=search_text))
     context = {
-        "mobile_list": mobile_list
+        "mobile_list": mobile
     }
 
-    search_text = request.POST.get("search_text")
-    mobile = Mobile.objects.filter(model=search_text, jan_code=search_text).all()
-    print(mobile)
-
-    return render(request, 'search-result.html', context)
+    return render(request, 'mobile-list.html', context)
