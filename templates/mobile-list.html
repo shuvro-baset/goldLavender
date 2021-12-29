@@ -50,6 +50,7 @@
         </div>
     </div>
     <div class="row py-5 d-flex justify-content-center align-items-center">
+        <p id="demo">id: </p>
         <table class="table table-responsive">
             <thead>
             <tr>
@@ -64,7 +65,7 @@
             <tbody>
             {% csrf_token %}
             {% for mobile in mobile_list %}
-                <tr id="{{ mobile.id }}">
+                <tr id="{{ mobile.id }}" class="dynamic-row">
                     <th scope="row">
                         <input type="checkbox" name="mobile_id[]" value="{{ mobile.id }}" id="{{ mobile.id }}">
                     </th>
@@ -80,12 +81,13 @@
 
             </tbody>
         </table>
-        <button class="btn btn-danger" id="delete_btn">Delete Mobiles</button>
+        <div>
+            <button class="btn btn-danger" id="delete_btn">Delete Mobiles</button>
+        </div>
     </div>
 </div>
 
 <script>
-
     const sendSearchData = (series) => {
             console.log("lakdsjf:")
         $.ajax({
@@ -96,21 +98,19 @@
                 'series': series,
             },
             success: (res) => {
-                console.log(res);
+                console.log(res.length);
+                const id = document.getElementById("demo").innerHTML = res.length;
+
             },
             error: (err) => {
                 console.log(err);
             }
-
         })
     }
-
     const search_text = document.getElementById("search")
     console.log("search text: ", search_text)
-
     const csrf = document.getElementsByName("csrfmiddlewaretoken")[0].value;
     console.log("token: ", csrf)
-
     search_text.addEventListener("keyup", e=> {
         console.log(e.target.value);
         sendSearchData(e.target.value);
