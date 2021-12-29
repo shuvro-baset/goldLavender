@@ -62,11 +62,11 @@
             </tr>
             </thead>
             <tbody>
-
+            {% csrf_token %}
             {% for mobile in mobile_list %}
-                <tr>
+                <tr id="{{ mobile.id }}">
                     <th scope="row">
-                        <input type="checkbox" id="{{ mobile.id }}">
+                        <input type="checkbox" name="mobile_id[]" value="{{ mobile.id }}" id="{{ mobile.id }}">
                     </th>
                     <td>{{ mobile.brand_name }}</td>
                     <td>{{ mobile.brand_name }}</td>
@@ -80,6 +80,7 @@
 
             </tbody>
         </table>
+        <button class="btn btn-danger" id="delete_btn">Delete Mobiles</button>
     </div>
 </div>
 
@@ -114,8 +115,40 @@
         console.log(e.target.value);
         sendSearchData(e.target.value);
     })
+</script>
 
+<script>
+    $(document).ready(function() {
+    $('#delete_btn').click(function() {
+        if(confirm('Are you sure you want to delete')){
+            var id =[];
+            var csrf=$('input[name=csrfmiddlewaretoken]').val();
+            $(':checkbox:checked').each(function(i){
+                id[i]=$(this).val();
 
+            })
+            if(id.length===0){
+                alert('Please select items to delete')
+            }else{
+                console.log(id);
+                $.ajax({
+                    url: "{% url 'delete-mobiles' %}",
+                    method: "POST",
+                    data: {
+                        id,
+                        csrfmiddlewaretoken:csrf
+                    },
+                    success:function(response){
+                        for(var i=0;i<id.length; i++) {
+                            $('tr#'+id[i]+'').css('background-color', '#ccc');
+                            $('tr#'+id[i]+'').fadeOut('slow');
+                        }
+                    }
+                })
+            }
+        }
+    })
+})
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

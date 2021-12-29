@@ -53,6 +53,18 @@ def delete_mobile(request, id):
     return render(request, 'mobile-list.html', context)
 
 
+def delete_mobiles(request, *args, **kwargs):
+    if request.method=="POST":
+        print("delete multiple mobiles...")
+        mobile_ids=request.POST.getlist('id[]')
+        for id in mobile_ids:
+            mobile = Mobile.objects.get(pk=id)
+            mobile.delete()
+        return redirect('mobile-list')
+
+    # return render(request, 'mobile-list.html', context)
+
+
 def search_mobile_list(request):
     print("search hitting: ")
     search_text = request.POST.get("series")
