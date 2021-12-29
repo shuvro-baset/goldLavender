@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views import generic
-
+from django.http import JsonResponse
 # Create your views here.
 from mobileApp.models import Mobile
 
@@ -26,6 +26,12 @@ def add_mobile(request):
 
 
 def mobile_list(request):
+
+    d = request.POST.get("search_text")
+    print(d)
+
+
+
     mobile_list = Mobile.objects.all()
     context = {
         "mobile_list": mobile_list
@@ -48,8 +54,11 @@ def delete_mobile(request, id):
 
 
 def search_mobile_list(request):
-    search_text = request.POST.get("search_text")
+    print("search hitting: ")
+    search_text = request.POST.get("series")
+    print(search_text)
     mobile = Mobile.objects.filter(Q(model__contains=search_text) | Q(jan_code__contains=search_text))
+    print("mobile: ", mobile)
     context = {
         "mobile_list": mobile
     }

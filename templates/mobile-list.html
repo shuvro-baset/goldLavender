@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <title>GoldLavender | Mobile List</title>
 </head>
 <body>
@@ -40,7 +40,7 @@
     </div>
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col-md-6">
-            <form action="{% url 'search-mobile' %}" method="post">
+            <form method="post">
                 {% csrf_token %}
                 <div class="mb-3 d-flex justify-content-center align-items-center">
                     <input id="search" type="text" name="search_text" class="form-control" placeholder="Search">
@@ -84,24 +84,37 @@
 </div>
 
 <script>
-    $(document).ready( function(){
-    $('#search').keyup(function(){
-        var query = $(this).val();
-        $.ajax(function(){
-            type: "GET",
-            url: "/search-mobile/",
-            data: {suggestion: query},
-            success: function(data){
-                console.log("SUCCESS");
-                console.log(data);
+
+    const sendSearchData = (series) => {
+            console.log("lakdsjf:")
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'search-mobile' %}",
+            data: {
+                'csrfmiddlewaretoken': csrf,
+                'series': series,
             },
-            failure: function(data){
-                console.log("FAIL");
-                console.log(data);
+            success: (res) => {
+                console.log(res);
             },
-        });
-    });
-});
+            error: (err) => {
+                console.log(err);
+            }
+
+        })
+    }
+
+    const search_text = document.getElementById("search")
+    console.log("search text: ", search_text)
+
+    const csrf = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    console.log("token: ", csrf)
+
+    search_text.addEventListener("keyup", e=> {
+        console.log(e.target.value);
+        sendSearchData(e.target.value);
+    })
+
 
 </script>
 
