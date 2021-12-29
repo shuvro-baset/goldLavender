@@ -50,7 +50,6 @@
         </div>
     </div>
     <div class="row py-5 d-flex justify-content-center align-items-center">
-        <p id="demo">id: </p>
         <table class="table table-responsive">
             <thead>
             <tr>
@@ -62,10 +61,10 @@
                 <th scope="col">Delete</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="dynamic-row">
             {% csrf_token %}
             {% for mobile in mobile_list %}
-                <tr id="{{ mobile.id }}" class="dynamic-row">
+                <tr id="{{ mobile.id }}">
                     <th scope="row">
                         <input type="checkbox" name="mobile_id[]" value="{{ mobile.id }}" id="{{ mobile.id }}">
                     </th>
@@ -78,6 +77,8 @@
                     </td>
                 </tr>
             {% endfor %}
+            </tbody>
+            <tbody id="test-row">
 
             </tbody>
         </table>
@@ -98,8 +99,16 @@
                 'series': series,
             },
             success: (res) => {
+                $('#dynamic-row').empty();
                 console.log(res.length);
-                const id = document.getElementById("demo").innerHTML = res.length;
+                for( var i = 0; i<res.length; i++){
+                        var id = res[i]['id'];
+                        var brand_name =  res[i]['brand_name'];
+                        var model =  res[i]['model'];
+                        var color =  res[i]['color'];
+                        var jan_code =  res[i]['jan_code'];
+                        $("#test-row").append("<tr><td></td><td>"+brand_name+"</td><td>"+model+"</td><td>"+color+"</td><td>"+jan_code+"</td></tr>");
+                    }
 
             },
             error: (err) => {
@@ -115,6 +124,8 @@
         console.log(e.target.value);
         sendSearchData(e.target.value);
     })
+
+
 </script>
 
 <script>
@@ -149,6 +160,8 @@
         }
     })
 })
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
